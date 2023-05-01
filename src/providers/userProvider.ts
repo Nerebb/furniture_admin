@@ -2,21 +2,35 @@ import { buildQuery } from "@/utils/buildQuery";
 import { stringify } from 'query-string';
 import { DataProvider } from "react-admin";
 import { BASE_URL_ADMIN, httpClient } from ".";
-import { FilterSearch } from "../../@type";
+import { UserSearch } from "../../@type";
+import { User } from "@prisma/client";
 
 export type Filter = {
     id: string
     label: string
 }
+const databaseDateTime = ['userVerified', 'emailVerified', 'deleted'] satisfies Array<keyof User>
 
-const FilterProvider: DataProvider = {
-    getList: (resource, params) => {
+const UserProvider: DataProvider = {
+    getList: async (resource, params) => {
         try {
+            //SearchParams
             const AllowedFilters = {
-                filter: params.sort.field === "id" && resource === 'color' ? 'hex' : params.sort.field,
+                id: params.filter.id,
+                name: params.filter.name,
+                nickName: params.filter.nickName,
+                email: params.filter.email,
+                role: params.filter.role,
+                gender: params.filter.gender,
+                createdDate: params.filter.createdDate,
+                updatedAt: params.filter.updatedAt,
+                userVerified: params.filter.userVerified,
+                emailVerified: params.filter.emailVerified,
+                deleted: params.filter.deleted,
+                filter: params.sort.field,
                 sort: params.sort.order,
                 limit: params.pagination.perPage
-            } satisfies FilterSearch
+            } satisfies UserSearch
 
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, AllowedFilters)
 
@@ -36,11 +50,21 @@ const FilterProvider: DataProvider = {
 
     getOne: (resource, params) => {
         try {
-            const url = `${BASE_URL_ADMIN}/${resource}?id=${params.id}`
+            const url = `${BASE_URL_ADMIN}/${resource}/${params.id}`
 
-            return httpClient(url).then(({ json }) => ({
-                data: json.data,
-            }))
+            return httpClient(url).then(({ json }) => {
+                for (const field of databaseDateTime) {
+                    if (json.data[field]) {
+                        json.data[`${field}Time`] = json.data[field]
+                        json.data[field] = true
+                    } else {
+                        json.data[field] = false
+                    }
+                }
+                return ({
+                    data: { ...json.data },
+                })
+            })
         } catch (error: any) {
             return Promise.reject(error.message)
         }
@@ -50,7 +74,6 @@ const FilterProvider: DataProvider = {
         try {
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids });
             return httpClient(url).then(({ json }) => {
-                if (params.ids.length <= 1) return ({ data: [json.data] }) //Sever response with only 1 record
                 return ({ data: json.data })
             }).catch((error) => {
                 return Promise.reject(error.message)
@@ -81,7 +104,7 @@ const FilterProvider: DataProvider = {
 
     create: (resource, params) => {
         try {
-            return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
+            return httpClient(`${BASE_URL_ADMIN}/${resource}/signup`, {
                 method: 'POST',
                 body: JSON.stringify(params.data),
             }).then(({ json }) => {
@@ -96,14 +119,10 @@ const FilterProvider: DataProvider = {
 
     update: (resource, params) => {
         try {
-            return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
+            return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(params.data),
-            }).then(async () => {
-                return await httpClient(`${BASE_URL_ADMIN}/${resource}?id=${params.data}`).then(({ json }) => ({
-                    data: json.data,
-                }))
-            })
+            }).then(({ json }) => ({ data: json.data }))
         } catch (error: any) {
             return Promise.reject(error.message)
         }
@@ -148,4 +167,4 @@ const FilterProvider: DataProvider = {
     },
 }
 
-export default FilterProvider
+export default UserProvider

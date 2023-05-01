@@ -1,22 +1,26 @@
 import { buildQuery } from "@/utils/buildQuery";
-import { stringify } from 'query-string';
 import { DataProvider } from "react-admin";
+import { ReviewSearch, UserSearch } from "../../@type";
 import { BASE_URL_ADMIN, httpClient } from ".";
-import { FilterSearch } from "../../@type";
+import { stringify } from "querystring";
 
-export type Filter = {
-    id: string
-    label: string
-}
-
-const FilterProvider: DataProvider = {
-    getList: (resource, params) => {
+const ReviewProvider: DataProvider = {
+    getList: async (resource, params) => {
         try {
+            //SearchParams
             const AllowedFilters = {
-                filter: params.sort.field === "id" && resource === 'color' ? 'hex' : params.sort.field,
+                id: params.filter.id,
+                ownerId: params.filter.ownerId,
+                productId: params.filter.productId,
+                likedUsers: params.filter.likedUsers,
+                content: params.filter.content,
+                rating: params.filter.rating,
+                createdDate: params.filter.createdDate,
+                updatedAt: params.filter.updatedAt,
+                filter: params.sort.field,
                 sort: params.sort.order,
                 limit: params.pagination.perPage
-            } satisfies FilterSearch
+            } satisfies ReviewSearch
 
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, AllowedFilters)
 
@@ -33,14 +37,15 @@ const FilterProvider: DataProvider = {
             return Promise.reject(error.message)
         }
     },
-
     getOne: (resource, params) => {
         try {
-            const url = `${BASE_URL_ADMIN}/${resource}?id=${params.id}`
+            const url = `${BASE_URL_ADMIN}/${resource}/${params.id}`
 
-            return httpClient(url).then(({ json }) => ({
-                data: json.data,
-            }))
+            return httpClient(url).then(({ json }) => {
+                return ({
+                    data: { ...json.data },
+                })
+            })
         } catch (error: any) {
             return Promise.reject(error.message)
         }
@@ -96,14 +101,10 @@ const FilterProvider: DataProvider = {
 
     update: (resource, params) => {
         try {
-            return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
+            return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(params.data),
-            }).then(async () => {
-                return await httpClient(`${BASE_URL_ADMIN}/${resource}?id=${params.data}`).then(({ json }) => ({
-                    data: json.data,
-                }))
-            })
+            }).then(({ json }) => ({ data: json.data }))
         } catch (error: any) {
             return Promise.reject(error.message)
         }
@@ -148,4 +149,4 @@ const FilterProvider: DataProvider = {
     },
 }
 
-export default FilterProvider
+export default ReviewProvider

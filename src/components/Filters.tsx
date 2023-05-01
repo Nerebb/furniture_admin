@@ -3,13 +3,13 @@ import * as React from "react";
 import { List, Datagrid, TextField, EditButton, DeleteButton, Edit, SimpleForm, TextInput, Create, ValidateForm, Error, Title, useResourceContext } from 'react-admin';
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import EmptyRecord from "./customs/EmptyRecord";
 
-export const CustomEmpty = () => <div>No records found</div>
 
 export const FilterList = () => (
     <List>
         <Datagrid
-            empty={<CustomEmpty />}
+            empty={<EmptyRecord />}
             sx={{
                 ".column-label": { width: "60%" }
             }}
@@ -51,7 +51,10 @@ export const FilterEdit = () => {
     return (
         <Edit
             title={'Create new'}
-            sx={{ maxWidth: "400px" }}
+            sx={{
+                maxWidth: "400px",
+                margin: "auto"
+            }}
         >
             <SimpleForm
                 resolver={yupResolver(schema)}
