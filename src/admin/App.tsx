@@ -2,8 +2,8 @@ import Filters from '@/components/Filters';
 import Login from "@/components/Login";
 import Products from '@/components/Products';
 import Order from '@/components/Order';
-import Reviews from '@/components/Previews';
-import { UserCreate, UserEdit, UserList } from "@/components/User";
+import Previews from '@/components/Previews';
+import User from '@/components/User';
 import { DataProvider } from "@/providers";
 import { authProvider } from "@/providers/authProvider";
 import { Admin, Resource } from 'react-admin';
@@ -30,13 +30,11 @@ const App = () => (
         />
         <Resource
             name="user"
-            list={UserList}
-            edit={UserEdit}
-            create={UserCreate}
+            {...User}
         />
         <Resource
             name="review"
-            {...Reviews}
+            {...Previews}
         />
         <Resource
             name="order"
