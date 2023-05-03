@@ -106,50 +106,50 @@ export const OrderList = () => (
     </List>
 );
 
-export type CreateOrder = {
-    userId: string
-} & NewOrder
-const initOrderCreateState = {
-    userId: "",
-    billingAddress: "",
-    shippingAddress: "",
-    products: [],
-} satisfies NewOrder & { userId: string }
-export const OrderCreate = () => {
-    const { data: productList } = useGetList<ProductCard>('products')
-    const [formState, setFormState] = useReducer((prev: Partial<CreateOrder>, next: Partial<CreateOrder>) => {
-        return { ...prev, ...next }
-    }, initOrderCreateState)
-    // const [selectedProduct, setSelectedProduct] = useState<>(null)
-    return (
-        <Create
-            sx={{ maxWidth: 800, margin: 'auto' }}
-        >
-            <SimpleForm
-                defaultValues={initOrderCreateState}
-                resolver={yupResolver(Yup.object(NewOrderSchemaValidate))}
-            >
+// export type CreateOrder = {
+//     userId: string
+// } & NewOrder
+// const initOrderCreateState = {
+//     userId: "",
+//     billingAddress: "",
+//     shippingAddress: "",
+//     products: [],
+// } satisfies NewOrder & { userId: string }
+// export const OrderCreate = () => {
+//     const { data: productList } = useGetList<ProductCard>('products')
+//     const [formState, setFormState] = useReducer((prev: Partial<CreateOrder>, next: Partial<CreateOrder>) => {
+//         return { ...prev, ...next }
+//     }, initOrderCreateState)
+//     // const [selectedProduct, setSelectedProduct] = useState<>(null)
+//     return (
+//         <Create
+//             sx={{ maxWidth: 800, margin: 'auto' }}
+//         >
+//             <SimpleForm
+//                 defaultValues={initOrderCreateState}
+//                 resolver={yupResolver(Yup.object(NewOrderSchemaValidate))}
+//             >
 
-                {/* BasicInfo */}
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Create new Order
-                </Typography>
-                <ReferenceInput source="userId" reference='user'>
-                    <AutocompleteInput optionText='id' />
-                </ReferenceInput>
-                <Stack gap={1}>
-                    <TextInput source='billingAddress' />
-                    <TextInput source='shippingAddress' />
-                </Stack>
-                <Box
-                    sx={{
-                        maxHeight: "500px",
-                        overflowY: "auto"
-                    }}
-                >
-                    <CreateOrderProducts newItems={formState.products} setNewItem={setFormState} />
-                </Box>
-            </SimpleForm>
-        </Create>
-    )
-}
+//                 {/* BasicInfo */}
+//                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+//                     Create new Order
+//                 </Typography>
+//                 <ReferenceInput source="userId" reference='user'>
+//                     <AutocompleteInput optionText='id' />
+//                 </ReferenceInput>
+//                 <Stack gap={1}>
+//                     <TextInput source='billingAddress' />
+//                     <TextInput source='shippingAddress' />
+//                 </Stack>
+//                 <Box
+//                     sx={{
+//                         maxHeight: "500px",
+//                         overflowY: "auto"
+//                     }}
+//                 >
+//                     <CreateOrderProducts newItems={formState.products} setNewItem={setFormState} />
+//                 </Box>
+//             </SimpleForm>
+//         </Create>
+//     )
+// }

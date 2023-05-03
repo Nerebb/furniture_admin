@@ -1,6 +1,7 @@
 import { FilterCreate, FilterEdit, FilterList } from "@/components/Filters";
 import Login from "@/components/Login";
-import { OrderCreate, OrderList } from "@/components/Order";
+import { OrderList } from "@/components/Order";
+import OrderCreate from "@/components/OrderCreate";
 import { ProductCreate, ProductEdit, ProductList } from "@/components/Products";
 import { ReviewCreate, ReviewEdit, ReviewList } from "@/components/Reviews";
 import { UserCreate, UserEdit, UserList } from "@/components/User";
