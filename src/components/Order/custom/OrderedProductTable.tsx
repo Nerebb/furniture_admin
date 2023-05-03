@@ -1,27 +1,14 @@
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow
-} from '@mui/material';
-import { Link, useGetOne, useRecordContext } from 'react-admin';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import React from 'react'
+import { Link } from 'react-admin'
+import { fCurrency } from '@/utils/numberal'
+import { NewOrderItem, OrderedItem } from '../../../../@type'
 
-import { fCurrency } from '@/utils/numberal';
-import { ResponseOrder } from '../../../@type';
-import EmptyRecord from './EmptyRecord';
+type Props = {
+    products: OrderedItem[] | NewOrderItem[]
+}
 
-const OrderedProducts = () => {
-    const record = useRecordContext<ResponseOrder>();
-
-    const { isLoading, data: products } = useGetOne<ResponseOrder>(
-        'order',
-        { id: record.id, meta: { userId: record.ownerId } },
-        { enabled: !!record }
-    );
-
-    if (isLoading || !record || !products || !products.orderedProductDetail) return <EmptyRecord />;
-
+export default function ProductOrderTable({ products }: Props) {
     return (
         <Table stickyHeader>
             <TableHead>
@@ -34,7 +21,7 @@ const OrderedProducts = () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {products.orderedProductDetail.map((item, idx) => (
+                {products.map((item, idx) => (
                     <TableRow key={`${item.productId}-${idx}`}>
                         <TableCell>
                             <Link to={`/products/${item.productId}`}>
@@ -49,7 +36,5 @@ const OrderedProducts = () => {
                 ))}
             </TableBody>
         </Table>
-    );
-};
-
-export default OrderedProducts;
+    )
+}

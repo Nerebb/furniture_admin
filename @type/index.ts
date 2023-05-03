@@ -69,20 +69,12 @@ export type ResponseReview = ProductReview & {
     isLiked: boolean,
 }
 
-type OrderInclude = {
-    _count?: Prisma.OrderCountOutputType | undefined;
-    owner?: User | undefined;
-    orderedProducts?: OrderItem[] | undefined;
-}
-
-export type CreateOrderItem = Omit<Prisma.OrderItemCreateInput, 'order'> & {
-    color: JsonColor[]
-}
-
 export type NewOrderItem = {
     productId: string,
     color: string,
-    quantities: number
+    quantities: number,
+    name: string
+    salePrice: number
 }
 
 export type NewOrder = {

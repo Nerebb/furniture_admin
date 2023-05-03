@@ -88,7 +88,6 @@ const ProductProvider: DataProvider = {
     getMany: (resource, params) => {
         const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids });
         return httpClient(url).then(({ json }) => {
-            console.log("🚀 ~ file: productProvider.ts:93 ~ returnhttpClient ~ json:", json)
             return { data: json.data.map((i: any) => ({ id: i.id, name: i.label })) }
         });
     },

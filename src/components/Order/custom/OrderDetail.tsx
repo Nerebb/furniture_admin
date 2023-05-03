@@ -1,15 +1,9 @@
-import { checkOrderStatus } from '@/utils/checkOrderStatus';
-import { NewOrderSchemaValidate } from '@/utils/schemaValidate';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Box, Card, CardContent, Grid, Stack, TableCell, Typography } from '@mui/material';
+import { DeleteButton, TopToolbar, useGetOne, useRecordContext } from 'react-admin';
+import { ResponseOrder } from '../../../../@type';
 import { User } from '@prisma/client';
-import { useReducer, useState } from 'react';
-import { AutocompleteInput, Create, Datagrid, DateField, DeleteButton, FunctionField, List, NumberField, NumberInput, ReferenceField, ReferenceInput, SelectInput, SimpleForm, TextField, TextInput, TopToolbar, required, useGetList, useGetOne, useList, useRecordContext } from 'react-admin';
-import * as Yup from 'yup';
-import { NewOrder, ProductCard, ResponseOrder } from '../../@type';
-import ListActions from './customs/ListActions';
-import OrderedProducts from './customs/OrderedProducts';
-import CreateOrderProducts from './customs/CreateOrderProduct';
+import OrderedProducts from './OrderedProducts';
+import { checkOrderStatus } from '@/utils/checkOrderStatus';
 
 const OrderDetail = () => {
     const record = useRecordContext<ResponseOrder>()
@@ -78,78 +72,4 @@ const OrderDetail = () => {
     )
 }
 
-
-export const OrderList = () => (
-    <List
-        actions={<ListActions />}
-        sx={{
-            ".column-status": {
-                textTransform: "capitalize"
-            }
-        }}
-    >
-        <Datagrid
-            rowClick="expand"
-            expand={<OrderDetail />}
-        >
-            <TextField source="id" />
-            <ReferenceField source="ownerId" reference='user' sx={{ textTransform: "capitalize" }}>
-                <FunctionField render={(record: User) => record && `${record.name} (${record.nickName})`} />
-            </ReferenceField>
-            <TextField source="status" />
-            <NumberField source="shippingFee" options={{ style: 'currency', currency: 'VND' }} />
-            <NumberField source="subTotal" options={{ style: 'currency', currency: 'VND' }} />
-            <NumberField source="total" options={{ style: 'currency', currency: 'VND' }} />
-            <DateField source="updatedAt" showDate textAlign='center' />
-            <DateField source="createdDate" showDate textAlign='center' />
-        </Datagrid>
-    </List>
-);
-
-// export type CreateOrder = {
-//     userId: string
-// } & NewOrder
-// const initOrderCreateState = {
-//     userId: "",
-//     billingAddress: "",
-//     shippingAddress: "",
-//     products: [],
-// } satisfies NewOrder & { userId: string }
-// export const OrderCreate = () => {
-//     const { data: productList } = useGetList<ProductCard>('products')
-//     const [formState, setFormState] = useReducer((prev: Partial<CreateOrder>, next: Partial<CreateOrder>) => {
-//         return { ...prev, ...next }
-//     }, initOrderCreateState)
-//     // const [selectedProduct, setSelectedProduct] = useState<>(null)
-//     return (
-//         <Create
-//             sx={{ maxWidth: 800, margin: 'auto' }}
-//         >
-//             <SimpleForm
-//                 defaultValues={initOrderCreateState}
-//                 resolver={yupResolver(Yup.object(NewOrderSchemaValidate))}
-//             >
-
-//                 {/* BasicInfo */}
-//                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//                     Create new Order
-//                 </Typography>
-//                 <ReferenceInput source="userId" reference='user'>
-//                     <AutocompleteInput optionText='id' />
-//                 </ReferenceInput>
-//                 <Stack gap={1}>
-//                     <TextInput source='billingAddress' />
-//                     <TextInput source='shippingAddress' />
-//                 </Stack>
-//                 <Box
-//                     sx={{
-//                         maxHeight: "500px",
-//                         overflowY: "auto"
-//                     }}
-//                 >
-//                     <CreateOrderProducts newItems={formState.products} setNewItem={setFormState} />
-//                 </Box>
-//             </SimpleForm>
-//         </Create>
-//     )
-// }
+export default OrderDetail

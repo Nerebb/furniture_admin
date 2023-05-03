@@ -114,3 +114,11 @@ export const NewOrderSchemaValidate = {
     shippingAddress: Yup.string().max(255).required(),
     products: Yup.array().of(Yup.object(ShoppingCartCreateSchemaValidate).required()).required(),
 }
+
+export const AddProductToNewOrderSchemaValidate = {
+    productId: Yup.string().uuid().required(),
+    color: Yup.string().max(7, "Color must be hex type").required(),
+    quantities: Yup.number().moreThan(0).required(),
+    name: Yup.string().required(),
+    salePrice: Yup.number().integer().min(0).required(),
+}

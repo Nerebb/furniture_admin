@@ -22,7 +22,6 @@ export const httpClient = (url: string, options?: fetchUtils.Options) => {
 };
 
 export const DataProvider = combineDataProviders((resource: string) => {
-    console.log("🚀 ~ file: index.ts:25 ~ DataProvider ~ resource:", resource)
     switch (resource) {
         case 'room':
         case 'category':

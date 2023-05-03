@@ -20,7 +20,7 @@ const ColoredChip = ({ resource, record }: { resource: string, record: Filter })
     />
 }
 
-export const CustomRefColor = ({ source, params }: { source: string, params: Partial<GetManyParams> }) => {
+const RefColor = ({ source, params }: { source: string, params: Partial<GetManyParams> }) => {
     const { data: records } = useGetMany<Filter>(source, params)
     if (!records || !records.length) return <Typography>No color registered</Typography>
     return (
@@ -30,3 +30,5 @@ export const CustomRefColor = ({ source, params }: { source: string, params: Par
         </Stack>
     )
 }
+
+export default RefColor

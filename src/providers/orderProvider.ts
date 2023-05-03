@@ -33,6 +33,7 @@ const OrderProvider: DataProvider = {
             const ServerAllowedQuery = {
                 //Search
                 id: params.filter.id,
+                ownerId: params.filter.ownerId,
                 subTotal: params.filter.subTotal,
                 total: params.filter.total,
                 shippingFee: params.filter.shippingFee,
@@ -83,7 +84,6 @@ const OrderProvider: DataProvider = {
     getMany: (resource, params) => {
         const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids });
         return httpClient(url).then(({ json }) => {
-            console.log("🚀 ~ file: orderProvider.ts:86 ~ returnhttpClient ~ json:", json)
             return { data: { ...json.data, subTotal: Number(json.data.subTotal), total: Number(json.data.total) } }
         });
     },
@@ -107,13 +107,15 @@ const OrderProvider: DataProvider = {
         }));
     },
 
-    create: (resource, params) =>
-        httpClient(`${BASE_URL_ADMIN}/${resource}/${params.data.id}`, {
+    create: (resource, params) => {
+
+        return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: { ...params.data },
-        })),
+            data: { ...json.data },
+        }))
+    },
 
     update: (resource, params) => {
         return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.data.id}`, {

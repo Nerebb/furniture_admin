@@ -1,37 +1,32 @@
-import { FilterCreate, FilterEdit, FilterList } from "@/components/Filters";
+import Filters from '@/components/Filters';
 import Login from "@/components/Login";
-import { OrderList } from "@/components/Order";
-import OrderCreate from "@/components/OrderCreate";
-import { ProductCreate, ProductEdit, ProductList } from "@/components/Products";
-import { ReviewCreate, ReviewEdit, ReviewList } from "@/components/Reviews";
+import Products from '@/components/Products';
+import Order from '@/components/Order';
+import Reviews from '@/components/Previews';
 import { UserCreate, UserEdit, UserList } from "@/components/User";
 import { DataProvider } from "@/providers";
 import { authProvider } from "@/providers/authProvider";
-import { Admin, EditGuesser, ListGuesser, Resource } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 
 
 // const dataProvider = FilterProvider
-const FilterTables = ['color', 'category', 'room']
+
 const App = () => (
     <Admin
         loginPage={<Login />}
         dataProvider={DataProvider}
         authProvider={authProvider}
     >
-        {FilterTables.map(table => (
+        {Filters.map(table => (
             <Resource
-                key={`${table}`}
-                name={table}
-                list={FilterList}
-                create={FilterCreate}
-                edit={FilterEdit}
+                key={`${table.name}`}
+                name={table.name}
+                {...table.resource}
             />
         ))}
         <Resource
             name="products"
-            list={ProductList}
-            edit={ProductEdit}
-            create={ProductCreate}
+            {...Products}
         />
         <Resource
             name="user"
@@ -41,14 +36,11 @@ const App = () => (
         />
         <Resource
             name="review"
-            list={ReviewList}
-            create={ReviewCreate}
-            edit={ReviewEdit}
+            {...Reviews}
         />
         <Resource
             name="order"
-            list={OrderList}
-            create={OrderCreate}
+            {...Order}
         />
     </Admin>
 );

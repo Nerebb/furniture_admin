@@ -96,17 +96,17 @@ const UserDetail = () => {
 }
 
 const userFilters = [
-    <TextInput key={`userFilter-1`} label="Search by Id" source="id" alwaysOn />,
-    <TextInput key={`userFilter-2`} label="Search by name" source="name" alwaysOn />,
-    <TextInput key={`userFilter-3`} label="Search by Nickname" source="nickName" />,
-    <TextInput key={`userFilter-4`} label="Search by email" source="email" type='email' />,
-    <SelectInput key={`userFilter-5`} label="Search by Role" source="role" choices={roleCheckboxes} optionText='label' />,
-    <SelectInput key={`userFilter-6`} label="Search by Gender" source="gender" choices={genderCheckboxes} optionText='label' />,
-    <DateInput key={`userFilter-7`} label="Search by Createdate" source="createdDate" />,
-    <DateInput key={`userFilter-8`} label="Search by UpdatedAt" source="updatedAt" />,
-    <DateInput key={`userFilter-9`} label="Search by Verified user" source="userVerified" />,
-    <DateInput key={`userFilter-10`} label="Search by Verified email" source="emailVerified" />,
-    <DateInput key={`userFilter-11`} label="Search by deleted user" source="deleted" />,
+    <TextInput key={`userFilter-1`} label="Filter by Id" source="id" alwaysOn />,
+    <TextInput key={`userFilter-2`} label="Filter by name" source="name" alwaysOn />,
+    <TextInput key={`userFilter-3`} label="Filter by Nickname" source="nickName" />,
+    <TextInput key={`userFilter-4`} label="Filter by email" source="email" type='email' />,
+    <SelectInput key={`userFilter-5`} label="Filter by Role" source="role" choices={roleCheckboxes} optionText='label' />,
+    <SelectInput key={`userFilter-6`} label="Filter by Gender" source="gender" choices={genderCheckboxes} optionText='label' />,
+    <DateInput key={`userFilter-7`} label="Filter by Createdate" source="createdDate" />,
+    <DateInput key={`userFilter-8`} label="Filter by UpdatedAt" source="updatedAt" />,
+    <DateInput key={`userFilter-9`} label="Filter by Verified user" source="userVerified" />,
+    <DateInput key={`userFilter-10`} label="Filter by Verified email" source="emailVerified" />,
+    <DateInput key={`userFilter-11`} label="Filter by deleted user" source="deleted" />,
 ]
 
 export const UserList = () => {

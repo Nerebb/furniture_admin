@@ -84,11 +84,7 @@ const FilterProvider: DataProvider = {
             return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
                 method: 'POST',
                 body: JSON.stringify(params.data),
-            }).then(({ json }) => {
-                return {
-                    data: { ...params.data, id: json.id },
-                }
-            })
+            }).then(({ json }) => ({ data: json.data }))
         } catch (error: any) {
             return Promise.reject(error.message)
         }
@@ -99,11 +95,7 @@ const FilterProvider: DataProvider = {
             return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
                 method: 'PUT',
                 body: JSON.stringify(params.data),
-            }).then(async () => {
-                return await httpClient(`${BASE_URL_ADMIN}/${resource}?id=${params.data}`).then(({ json }) => ({
-                    data: json.data,
-                }))
-            })
+            }).then(({ json }) => ({ data: json.data }))
         } catch (error: any) {
             return Promise.reject(error.message)
         }
