@@ -1,12 +1,11 @@
-import { Autocomplete, Box, Button, SelectChangeEvent, Stack, TextField, Typography } from '@mui/material'
-import React, { useMemo, useState } from 'react'
-import CusSelectInput from './CustomMUI/CusSelectInput'
-import { GetListParams, useGetList } from 'react-admin'
-import { NewOrderItem, ProductCard } from '../../../../@type'
-import ProductOrderTable from '../ProductOrderTable'
 import { useCreateOrderContext } from '@/context/CreateOrderProvider'
-import { AddProductToNewOrderSchemaValidate, ShoppingCartCreateSchemaValidate } from '@/utils/schemaValidate'
+import { AddProductToNewOrderSchemaValidate } from '@/utils/schemaValidate'
+import { Autocomplete, Button, SelectChangeEvent, Stack, TextField, Typography } from '@mui/material'
+import { useMemo, useState } from 'react'
+import { GetListParams, useGetList } from 'react-admin'
 import * as Yup from 'yup'
+import { NewOrderItem, ProductCard } from '../../../../../@type'
+import CusSelectInput from './CustomMUI/CusSelectInput'
 
 type Props = {}
 
