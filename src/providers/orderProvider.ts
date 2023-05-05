@@ -49,6 +49,7 @@ const OrderProvider: DataProvider = {
 
                 //Paginating
                 limit: params.pagination.perPage,
+                skip: params.pagination.perPage * (params.pagination.page - 1)
 
             } satisfies OrderSearch
 
@@ -148,9 +149,7 @@ const OrderProvider: DataProvider = {
         const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids })
         return httpClient(url, {
             method: 'DELETE',
-        }).then(({ json }) => {
-            return { data: json.data }
-        })
+        }).then(({ json }) => ({ data: [] }))
     },
 }
 

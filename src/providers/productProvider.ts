@@ -43,6 +43,7 @@ const ProductProvider: DataProvider = {
 
                 //Paginating
                 limit: params.pagination.perPage,
+                skip: params.pagination.perPage * (params.pagination.page - 1)
 
             } satisfies ProductSearch
 
@@ -72,7 +73,7 @@ const ProductProvider: DataProvider = {
                     }))
                     return {
                         data,
-                        total: contentRange ? JSON.parse(contentRange).totalRecord : 1,
+                        total: contentRange ? contentRange : 1,
                     }
                 })
         } catch (error: any) {
@@ -141,26 +142,14 @@ const ProductProvider: DataProvider = {
     delete: (resource, params) => {
         return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`, {
             method: 'DELETE',
-        }).then(async () => {
-            return await httpClient(`${BASE_URL_ADMIN}/${resource}`)
-                .then(({ headers, json }) => ({
-                    data: json.data,
-                    total: parseInt(headers.get('content-range')?.split('/').pop() ?? "", 10) ?? "",
-                }))
-        });
+        }).then(({ json }) => ({ data: json.data }))
     },
 
     deleteMany: (resource, params) => {
         const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids })
         return httpClient(url, {
             method: 'DELETE',
-        }).then(async () => {
-            return await httpClient(`${BASE_URL_ADMIN}/${resource}`)
-                .then(({ headers, json }) => ({
-                    data: json.data,
-                    total: parseInt(headers.get('content-range')?.split('/').pop() ?? "", 10) ?? "",
-                }))
-        });
+        }).then(({ json }) => ({ data: [] }))
     },
 }
 

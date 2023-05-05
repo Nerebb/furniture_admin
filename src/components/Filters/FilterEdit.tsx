@@ -7,12 +7,11 @@ const ColorSchema = Yup.object().shape(CreateColorSchemaValidate).required()
 const FilterSchema = Yup.object().shape(CreateFilterSchemaValidate).required()
 const FilterEdit = () => {
     const resource = useResourceContext();
-    console.log("🚀 ~ file: Filters.tsx:49 ~ FilterEdit ~ resource:", resource)
     const schema = resource === 'color' ? ColorSchema : FilterSchema
 
     return (
         <Edit
-            title={'Create new'}
+            title={'Edit filter'}
             sx={{
                 maxWidth: "400px",
                 margin: "auto"
@@ -22,7 +21,7 @@ const FilterEdit = () => {
                 resolver={yupResolver(schema)}
             >
                 <TextInput disabled label="Id" source="id" />
-                <TextInput label="Color name" source="label" />
+                <TextInput label={`${resource} name`} source="label" />
             </SimpleForm>
         </Edit>
     )

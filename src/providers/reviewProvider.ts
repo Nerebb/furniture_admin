@@ -19,7 +19,8 @@ const ReviewProvider: DataProvider = {
                 updatedAt: params.filter.updatedAt,
                 filter: params.sort.field,
                 sort: params.sort.order,
-                limit: params.pagination.perPage
+                limit: params.pagination.perPage,
+                skip: params.pagination.perPage * (params.pagination.page - 1)
             } satisfies ReviewSearch
 
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, AllowedFilters)
@@ -139,9 +140,7 @@ const ReviewProvider: DataProvider = {
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids })
             return httpClient(url, {
                 method: 'DELETE',
-            }).then(({ status, json }) => {
-                return ({ data: [] })
-            })
+            }).then(({ json }) => ({ data: [] }))
                 .catch(error => Promise.reject(error.message));
         } catch (error: any) {
             return Promise.reject(error.message)

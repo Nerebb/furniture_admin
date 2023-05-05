@@ -11,7 +11,10 @@ const FilterCreate = () => {
     return (
         <Create
             title={'Create new'}
-            sx={{ maxWidth: "400px" }}
+            sx={{
+                maxWidth: "400px",
+                margin: "auto"
+            }}
         >
             <SimpleForm
                 resolver={yupResolver(schema)}

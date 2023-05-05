@@ -32,7 +32,6 @@ export default async function handler(
             options.body = JSON.stringify(req.body)
         }
 
-        console.log("🚀 ~ file: [[...admin]].ts:36 ~ url:", url)
         const response = await fetch(url, options)
 
         res.status(response.status)

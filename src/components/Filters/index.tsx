@@ -11,7 +11,6 @@ const defaultProvider = {
     list: FilterList,
     create: FilterCreate,
     edit: FilterEdit,
-    // icon: FilterIcon,
 };
 
 const Filters = [
