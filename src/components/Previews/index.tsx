@@ -1,9 +1,10 @@
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'; import ReviewList from './PreviewList';
 import ReviewCreate from './ReviewCreate';
 import ReviewEdit from './ReviewEdit';
-import { DateInput, NumberInput, TextInput } from 'react-admin';
+import { BooleanInput, DateInput, NumberInput, SelectInput, TextInput } from 'react-admin';
 
 export const ReviewFilters = [
+    <BooleanInput key={`ReviewFilter-isPending`} source="isPending" alwaysOn />,
     <TextInput key={`ReviewFilter-id`} label="Filter by id" source="id" alwaysOn />,
     <TextInput key={`ReviewFilter-ownerId`} label="Filter by ownerId" source="ownerId" alwaysOn />,
     <TextInput key={`ReviewFilter-productId`} label="Filter by productId" source="productId" alwaysOn />,

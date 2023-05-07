@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { User } from "@prisma/client"
-import { Datagrid, DateField, DeleteButton, FunctionField, List, NumberField, ReferenceField, TextField } from "react-admin"
+import { BooleanField, Datagrid, DateField, DeleteButton, FunctionField, List, NumberField, ReferenceField, TextField } from "react-admin"
 import { ReviewFilters } from "."
 import ListActions from "../customs/ListActions"
 import ReviewEdit from "./ReviewEdit"
@@ -24,6 +24,7 @@ const ReviewList = () => {
                 <NumberField source="rating" textAlign="center" />
                 <DateField source="createdDate" />
                 <DateField source="updatedAt" />
+                <BooleanField source="isPending" />
                 <Box>
                     <DeleteButton />
                 </Box>

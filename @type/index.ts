@@ -60,6 +60,7 @@ export type ReviewSearch = {
     skip?: number,
     filter?: string //keyof Omit<ProductReview, ''>,
     sort?: string // 'asc' | 'desc'
+    isPending?: boolean
 }
 
 export type ResponseReview = ProductReview & {

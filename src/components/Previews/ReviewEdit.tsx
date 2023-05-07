@@ -1,5 +1,5 @@
 import { RichTextInput } from "ra-input-rich-text";
-import { AutocompleteInput, Edit, NumberInput, ReferenceInput, SimpleForm, useRecordContext, useResourceContext } from "react-admin";
+import { AutocompleteInput, BooleanInput, Edit, NumberInput, ReferenceInput, SimpleForm, useRecordContext, useResourceContext } from "react-admin";
 import { Stack } from '@mui/material'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateProductReviewSchemaValidate } from "@/utils/schemaValidate";
@@ -29,6 +29,7 @@ const ReviewEdit = () => {
                         <AutocompleteInput optionText='name' />
                     </ReferenceInput>
                     <NumberInput source="rating" min={0} max={5} />
+                    <BooleanInput source="isPending" />
                 </Stack>
                 <RichTextInput source="content" />
             </SimpleForm>

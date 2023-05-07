@@ -7,12 +7,14 @@ import User from '@/components/User';
 import { DataProvider } from "@/providers";
 import { authProvider } from "@/providers/authProvider";
 import { Admin, Resource } from 'react-admin';
+import Dashboard from '@/components/Dashboard';
 
 
 // const dataProvider = FilterProvider
 
-const App = () => (
+const AdminPage = () => (
     <Admin
+        dashboard={Dashboard}
         loginPage={<Login />}
         dataProvider={DataProvider}
         authProvider={authProvider}
@@ -43,4 +45,4 @@ const App = () => (
     </Admin>
 );
 
-export default App;
+export default AdminPage;

@@ -1,4 +1,4 @@
-import { Gender, Role } from '@prisma/client'
+import { Gender, Role, Status } from '@prisma/client'
 import * as Yup from 'yup'
 
 export const AllowedProductFilters = [
@@ -100,6 +100,7 @@ export const UpdateProductReviewSchemaValidate = {
     id: Yup.string().uuid("Invalid reviewId").required(),
     content: Yup.string().max(255),
     rating: Yup.number().integer().min(0).max(5),
+    isPending: Yup.boolean()
 }
 
 export const ShoppingCartCreateSchemaValidate = {
@@ -121,4 +122,9 @@ export const AddProductToNewOrderSchemaValidate = {
     quantities: Yup.number().moreThan(0).required(),
     name: Yup.string().required(),
     salePrice: Yup.number().integer().min(0).required(),
+}
+
+export const EditOrderSchemaValidate = {
+    ...NewOrderSchemaValidate,
+    status: Yup.string().oneOf(Object.values(Status))
 }

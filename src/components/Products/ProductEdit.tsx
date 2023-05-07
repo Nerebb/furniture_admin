@@ -11,7 +11,7 @@ const ProductEdit = () => {
 
     return (
         <Edit
-            title={'Create new product'}
+            title={'Edit product'}
             sx={{
                 maxWidth: "850px",
                 margin: 'auto',

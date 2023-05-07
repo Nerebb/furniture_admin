@@ -17,6 +17,7 @@ const ReviewProvider: DataProvider = {
                 rating: params.filter.rating,
                 createdDate: params.filter.createdDate,
                 updatedAt: params.filter.updatedAt,
+                isPending: params.filter.isPending,
                 filter: params.sort.field,
                 sort: params.sort.order,
                 limit: params.pagination.perPage,
