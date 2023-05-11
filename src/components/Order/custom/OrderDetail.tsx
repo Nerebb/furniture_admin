@@ -1,13 +1,15 @@
-import { Avatar, Box, Card, CardContent, Grid, Stack, TableCell, Typography } from '@mui/material';
-import { DeleteButton, TopToolbar, useGetOne, useRecordContext } from 'react-admin';
-import { ResponseOrder } from '../../../../@type';
-import { User } from '@prisma/client';
-import OrderedProducts from './OrderedProducts';
 import { checkOrderStatus } from '@/utils/checkOrderStatus';
+import { Avatar, Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material';
+import { User } from '@prisma/client';
+import { DeleteButton, TopToolbar, useGetOne, useRecordContext, Link, EditButton } from 'react-admin';
+import { ResponseOrder } from '../../../../@type';
+import OrderedProducts from './OrderedProducts';
 
 const OrderDetail = () => {
     const record = useRecordContext<ResponseOrder>()
-    const { data: owner } = useGetOne<User>('user', { id: record.ownerId })
+    const { data: owner } = useGetOne<User>('user',
+        { id: record.ownerId },
+    )
     return (
         <Card sx={{ maxWidth: 800, margin: 'auto' }}>
             <CardContent>
@@ -19,20 +21,19 @@ const OrderDetail = () => {
                     {owner && (
                         <Grid container justifyContent='space-between'>
                             <Grid item xs={6} justifyContent={'space-between'}>
-                                <Stack
-                                    direction='row'
-                                    gap={1}
-                                >
-                                    {owner.image ? (
-                                        <Avatar alt={owner.name || ""} src={owner.image[0]} />
-                                    ) : (
-                                        <Avatar sx={{ width: 30, height: 30, fontSize: 20 }}>{owner.name?.substring(0, 1).toUpperCase() || "N"}</Avatar>
-                                    )}
-                                    <Typography variant="h5" sx={{ ":first-letter": { textTransform: 'capitalize' } }}>{owner.name} ({owner.nickName})</Typography>
-                                </Stack>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                                    OwnerID: {owner.id}
-                                </Typography>
+                                <Link to={`/user/${owner.id}`}>
+                                    <Stack
+                                        direction='row'
+                                        gap={1}
+                                    >
+                                        {owner.image ? (
+                                            <Avatar alt={owner.name || ""} src={owner.image[0]} />
+                                        ) : (
+                                            <Avatar sx={{ width: 30, height: 30, fontSize: 20 }}>{owner.name?.substring(0, 1).toUpperCase() || "N"}</Avatar>
+                                        )}
+                                        <Typography variant="h5" sx={{ ":first-letter": { textTransform: 'capitalize' } }}>{owner.name} ({owner.nickName})</Typography>
+                                    </Stack>
+                                </Link>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography width={"100%"} sx={{ fontSize: 16, display: 'flex', justifyContent: "space-between" }} color="text.secondary" gutterBottom>
@@ -65,6 +66,7 @@ const OrderDetail = () => {
                     <OrderedProducts />
                 </Box>
                 <TopToolbar>
+                    <EditButton label='Edit order' />
                     <DeleteButton label='Cancel order' disabled={checkOrderStatus(record.status)} />
                 </TopToolbar>
             </CardContent>

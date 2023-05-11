@@ -24,12 +24,7 @@ export const PendingOrder = (props: Props) => {
     const { data: customer } = useGetOne('user', { id: order.ownerId })
 
     return (
-        <ListItem button component={Link} to={{
-            pathname: "/order",
-            search: stringify({
-                filter: JSON.stringify({ id: order.id }),
-            }),
-        }}>
+        <ListItem button component={Link} to={`order/${order.id}`}>
             <ListItemAvatar>
                 {customer && customer.image ? (
                     <Avatar

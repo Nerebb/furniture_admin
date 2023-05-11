@@ -49,12 +49,7 @@ const NewCustomers = () => {
                     ? visitors.map((record: User) => (
                         <ListItem
                             button
-                            to={{
-                                pathname: `/user`,
-                                search: stringify({
-                                    filter: JSON.stringify({ id: record.id }),
-                                }),
-                            }}
+                            to={`user/${record.id}`}
                             component={Link}
                             key={record.id}
                         >

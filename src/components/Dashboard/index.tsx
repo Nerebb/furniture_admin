@@ -4,20 +4,21 @@ import MonthlyRevenue from './MonthlyRevenue'
 import { useMemo, CSSProperties } from 'react';
 import { ResponseOrder } from '../../../@type';
 import Welcome from './Welcome';
-import NbNewOrders from './NbNewOrders';
+import NbNewOrders from './HighestOrder';
 import NewCustomers from './NewCustomers';
 import OrderChart from './OrderChart';
 import PendingOrders from './PendingOrders';
 import PendingReviews from './PendingReviews';
+import HighestOrder from './HighestOrder';
 
 interface OrderStats {
     revenue: number;
-    nbNewOrders: number;
+    highestOrder: { id: string, total: number };
     pendingOrders: ResponseOrder[];
 }
 
 interface State {
-    nbNewOrders?: number;
+    highestOrder?: { id: string, total: number };
     pendingOrders?: ResponseOrder[];
     recentOrders?: ResponseOrder[];
     revenue?: string;
@@ -51,16 +52,18 @@ export default function Dashboard() {
                 (stats: OrderStats, order) => {
                     if (order.status !== 'orderCanceled') {
                         stats.revenue += Number(order.total);
-                        stats.nbNewOrders++;
                     }
                     if (order.status === 'completed') {
                         stats.pendingOrders.push(order);
+                    }
+                    if (Number(order.total) > stats.highestOrder.total) {
+                        stats.highestOrder = { id: order.id, total: Number(order.total) }
                     }
                     return stats;
                 },
                 {
                     revenue: 0,
-                    nbNewOrders: 0,
+                    highestOrder: { id: '', total: 0 },
                     pendingOrders: [],
                 }
             );
@@ -72,44 +75,43 @@ export default function Dashboard() {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
             }),
-            nbNewOrders: aggregations.nbNewOrders,
+            highestOrder: aggregations.highestOrder,
             pendingOrders: aggregations.pendingOrders,
         };
     }, [orders]);
 
-    const { nbNewOrders, pendingOrders, revenue, recentOrders } = aggregation;
+    const { highestOrder, pendingOrders, revenue, recentOrders } = aggregation;
 
 
-    // return isXSmall ? (
-    //     <div>
-    //         <div style={styles.flexColumn as CSSProperties}>
-    //             <Welcome />
-    //             <MonthlyRevenue value={revenue} />
-    //             <VerticalSpacer />
-    //             <NbNewOrders value={nbNewOrders} />
-    //             <VerticalSpacer />
-    //             <PendingOrders orders={pendingOrders} />
-    //         </div>
-    //     </div>
-    // ) : isSmall ? (
-    //     <div style={styles.flexColumn as CSSProperties}>
-    //         <div style={styles.singleCol}>
-    //             <Welcome />
-    //         </div>
-    //         <div style={styles.flex}>
-    //             <MonthlyRevenue value={revenue} />
-    //             <Spacer />
-    //             <NbNewOrders value={nbNewOrders} />
-    //         </div>
-    //         <div style={styles.singleCol}>
-    //             <OrderChart orders={recentOrders} />
-    //         </div>
-    //         <div style={styles.singleCol}>
-    //             <PendingOrders orders={pendingOrders} />
-    //         </div>
-    //     </div>
-    // ) : 
-    return (
+    return isXSmall ? (
+        <div>
+            <div style={styles.flexColumn as CSSProperties}>
+                <Welcome />
+                <MonthlyRevenue value={revenue} />
+                <VerticalSpacer />
+                <HighestOrder value={highestOrder} />
+                <VerticalSpacer />
+                <PendingOrders orders={pendingOrders} />
+            </div>
+        </div>
+    ) : isSmall ? (
+        <div style={styles.flexColumn as CSSProperties}>
+            <div style={styles.singleCol}>
+                <Welcome />
+            </div>
+            <div style={styles.flex}>
+                <MonthlyRevenue value={revenue} />
+                <Spacer />
+                <HighestOrder value={highestOrder} />
+            </div>
+            <div style={styles.singleCol}>
+                <OrderChart orders={recentOrders} />
+            </div>
+            <div style={styles.singleCol}>
+                <PendingOrders orders={pendingOrders} />
+            </div>
+        </div>
+    ) : (
         <>
             <Welcome />
             <div style={styles.flex}>
@@ -117,7 +119,7 @@ export default function Dashboard() {
                     <div style={styles.flex}>
                         <MonthlyRevenue value={revenue} />
                         <Spacer />
-                        <NbNewOrders value={nbNewOrders} />
+                        <HighestOrder value={highestOrder} />
                     </div>
                     <div style={styles.singleCol}>
                         <OrderChart orders={recentOrders} />

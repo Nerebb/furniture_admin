@@ -8,7 +8,23 @@ type Props = {
     products: OrderedItem[] | NewOrderItem[]
 }
 
-export default function ProductOrderTable({ products }: Props) {
+function CusTableRow(item: OrderedItem | NewOrderItem) {
+    return (
+        <>
+            <TableCell>
+                <Link to={`/products/${item.productId}`}>
+                    {item.name}
+                </Link>
+            </TableCell>
+            <TableCell align='center'>{item.color}</TableCell>
+            <TableCell align='center'>{item.quantities}</TableCell>
+            <TableCell align='right'>{fCurrency(item.salePrice)}</TableCell>
+            <TableCell align='right'>{fCurrency(item.salePrice * item.quantities)}</TableCell>
+        </>
+    )
+}
+
+export default function OrderedProductTable({ products }: Props) {
     return (
         <Table stickyHeader>
             <TableHead>
@@ -23,15 +39,7 @@ export default function ProductOrderTable({ products }: Props) {
             <TableBody>
                 {products.map((item, idx) => (
                     <TableRow key={`${item.productId}-${idx}`}>
-                        <TableCell>
-                            <Link to={`/products/${item.productId}`}>
-                                {item.name}
-                            </Link>
-                        </TableCell>
-                        <TableCell align='center'>{item.color}</TableCell>
-                        <TableCell align='center'>{item.quantities}</TableCell>
-                        <TableCell align='right'>{fCurrency(item.salePrice)}</TableCell>
-                        <TableCell align='right'>{fCurrency(item.salePrice * item.quantities)}</TableCell>
+                        <CusTableRow {...item} />
                     </TableRow>
                 ))}
             </TableBody>

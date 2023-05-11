@@ -1,7 +1,10 @@
 import { Datagrid, DeleteButton, EditButton, List, TextField } from "react-admin";
 import EmptyRecord from "../customs/EmptyRecord";
+
+
 const FilterList = () => (
-    <List>
+    <List
+    >
         <Datagrid
             empty={<EmptyRecord />}
             sx={{

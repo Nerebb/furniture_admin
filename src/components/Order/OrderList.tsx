@@ -1,9 +1,10 @@
 import { Avatar, Box, Card, CardContent, Grid, Stack, TableCell, Typography } from '@mui/material';
-import { Datagrid, DateField, FunctionField, List, NumberField, ReferenceField, TextField } from 'react-admin';
+import { Datagrid, DateField, EditButton, FunctionField, List, NumberField, ReferenceField, TextField } from 'react-admin';
 import ListActions from '../customs/ListActions';
 import OrderDetail from './custom/OrderDetail';
 import { User } from '@prisma/client';
 import { orderFilters } from '.';
+import { ResponseOrder } from '../../../@type';
 
 const OrderList = () => (
     <List
@@ -29,6 +30,7 @@ const OrderList = () => (
             <NumberField source="total" options={{ style: 'currency', currency: 'VND' }} />
             <DateField source="createdDate" showDate textAlign='center' />
             <DateField source="updatedAt" showDate textAlign='center' />
+            <EditButton />
         </Datagrid>
     </List>
 );

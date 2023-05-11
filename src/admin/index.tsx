@@ -9,7 +9,6 @@ import { authProvider } from "@/providers/authProvider";
 import { Admin, Resource } from 'react-admin';
 import Dashboard from '@/components/Dashboard';
 
-
 // const dataProvider = FilterProvider
 
 const AdminPage = () => (

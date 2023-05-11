@@ -26,7 +26,7 @@ const ProductEdit = () => {
                 <Stack direction='row' gap={2} justifyContent='space-between' width={"100%"}>
                     <TextInput disabled label="Id" source="id" sx={{ flexGrow: 1 }} />
                     <ReferenceInput source="creatorId" reference='user' >
-                        <AutocompleteInput optionText='name' />
+                        <AutocompleteInput optionText='name' filterToQuery={(value) => ({ name: value })} />
                     </ReferenceInput>
                     <BooleanInput source="isFeatureProduct" />
                 </Stack>

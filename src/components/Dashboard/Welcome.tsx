@@ -43,6 +43,7 @@ const Welcome = () => {
                             sx={{
                                 padding: { xs: 0, xl: null },
                                 flexWrap: { xs: 'wrap', xl: null },
+                                gap: 2
                             }}
                         >
                             <Button

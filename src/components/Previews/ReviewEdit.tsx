@@ -4,6 +4,7 @@ import { Stack } from '@mui/material'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateProductReviewSchemaValidate } from "@/utils/schemaValidate";
 import * as Yup from 'yup'
+import PreviewEditToolBar from "./customs/PreviewEditToolBar";
 
 const ReviewEdit = () => {
     const record = useRecordContext();
@@ -23,13 +24,13 @@ const ReviewEdit = () => {
         >
             <SimpleForm
                 resolver={yupResolver(Yup.object(UpdateProductReviewSchemaValidate))}
+                toolbar={<PreviewEditToolBar />}
             >
                 <Stack direction='row' gap={2}>
                     <ReferenceInput source="ownerId" reference="user" >
                         <AutocompleteInput optionText='name' />
                     </ReferenceInput>
                     <NumberInput source="rating" min={0} max={5} />
-                    <BooleanInput source="isPending" />
                 </Stack>
                 <RichTextInput source="content" />
             </SimpleForm>

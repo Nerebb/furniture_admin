@@ -35,8 +35,8 @@ const CardWithIcon = ({ icon, title, subtitle, to, children }: Props) => (
                     padding: '16px',
                     background: theme =>
                         `url(${theme.palette.mode === 'dark'
-                            ? cartoucheDark
-                            : cartouche
+                            ? cartoucheDark.src
+                            : cartouche.src
                         }) no-repeat`,
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -45,7 +45,7 @@ const CardWithIcon = ({ icon, title, subtitle, to, children }: Props) => (
                         color: theme =>
                             theme.palette.mode === 'dark'
                                 ? 'inherit'
-                                : '#dc2440',
+                                : '#3C71A099',
                     },
                 }}
             >

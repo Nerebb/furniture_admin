@@ -105,7 +105,7 @@ const UserProvider: DataProvider = {
 
     create: (resource, params) => {
         try {
-            return httpClient(`${BASE_URL_ADMIN}/${resource}/signup`, {
+            return httpClient(`${BASE_URL_ADMIN}/auth/customSignup`, {
                 method: 'POST',
                 body: JSON.stringify(params.data),
             }).then(({ json }) => {

@@ -3,6 +3,7 @@ import OrderList from './OrderList';
 import OrderCreate from './OrderCreate';
 import { BooleanInput, DateInput, NumberInput, SelectInput, TextInput } from 'react-admin';
 import { Status } from '@prisma/client';
+import OrderEdit from './OrderEdit';
 
 const OrderStatus = ['completed', 'orderCanceled', 'pendingPayment', 'processingOrder', 'shipping'] satisfies Status[]
 export const orderStatusCheckboxes = OrderStatus.map(i => ({ id: i, label: i }))
@@ -22,6 +23,7 @@ export const orderFilters = [
 const resource = {
     list: OrderList,
     create: OrderCreate,
+    edit: OrderEdit,
     icon: ListAltOutlinedIcon,
 };
 

@@ -148,3 +148,10 @@ export type ProductCard = {
     totalRating: number,
     totalComments: number,
 }
+
+export type UpdateReview = {
+    id?: string
+    content?: string
+    rating?: number
+    isPending?: boolean
+}

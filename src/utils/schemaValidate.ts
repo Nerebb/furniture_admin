@@ -128,3 +128,10 @@ export const EditOrderSchemaValidate = {
     ...NewOrderSchemaValidate,
     status: Yup.string().oneOf(Object.values(Status))
 }
+
+export const UpdateOrderSchemaValidate = {
+    shippingFee: Yup.number().integer().min(0),
+    subTotal: Yup.number().integer().min(0),
+    total: Yup.number().integer().min(0),
+    status: Yup.string().oneOf(Object.values(Status))
+}

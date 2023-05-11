@@ -82,9 +82,11 @@ const ProductProvider: DataProvider = {
     },
 
     getOne: (resource, params) =>
-        httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`).then(({ json }) => ({
-            data: json.data,
-        })),
+        httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`)
+            .then(({ json }) => {
+                console.log("PRODUCT-GETONE", json)
+                return { data: json.data }
+            }),
 
     getMany: (resource, params) => {
         const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids });

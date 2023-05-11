@@ -33,6 +33,7 @@ export default async function handler(
         }
 
         const response = await fetch(url, options)
+        console.log("🚀 ~ file: [[...admin]].ts:36 ~ url:", url)
 
         res.status(response.status)
         res.setHeader("Content-Range", response.headers.get("content-range") || "")

@@ -1,5 +1,4 @@
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'; import ReviewList from './PreviewList';
-import ReviewCreate from './ReviewCreate';
 import ReviewEdit from './ReviewEdit';
 import { BooleanInput, DateInput, NumberInput, SelectInput, TextInput } from 'react-admin';
 
@@ -16,7 +15,6 @@ export const ReviewFilters = [
 
 const resource = {
     list: ReviewList,
-    create: ReviewCreate,
     edit: ReviewEdit,
     icon: BorderColorOutlinedIcon,
 };

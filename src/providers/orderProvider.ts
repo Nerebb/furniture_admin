@@ -75,9 +75,9 @@ const OrderProvider: DataProvider = {
     },
 
     getOne: (resource, params) => {
-        const userId = params.meta.userId
-        if (!userId) throw Promise.reject("Order OwnerId missing")
-        return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}?userId=${userId}`).then(({ json }) => ({
+        // if (!params.meta.userId) return Promise.reject("Order OwnerId missing")
+        // const userId = params.meta.userId
+        return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}?userId=${""}`).then(({ json }) => ({
             data: { ...json.data, subTotal: Number(json.data.subTotal), total: Number(json.data.total) },
         }))
     },
@@ -119,9 +119,15 @@ const OrderProvider: DataProvider = {
     },
 
     update: (resource, params) => {
+        const AllowedUpdateField = {
+            shippingFee: params.data.shippingFee,
+            subTotal: params.data.subTotal,
+            total: params.data.total,
+            status: params.data.status,
+        }
         return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.data.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.data),
+            method: 'POST',
+            body: JSON.stringify(AllowedUpdateField),
         }).then(({ json }) => {
             return { data: json.data }
         })

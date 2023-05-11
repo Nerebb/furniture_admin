@@ -105,7 +105,7 @@ const ReviewProvider: DataProvider = {
         try {
             return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.id}`, {
                 method: 'PUT',
-                body: JSON.stringify(params.data),
+                body: JSON.stringify({ ...params.data, isPending: false }),
             }).then(({ json }) => ({ data: json.data }))
         } catch (error: any) {
             return Promise.reject(error.message)
