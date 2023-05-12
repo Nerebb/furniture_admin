@@ -8,7 +8,7 @@ import publishArticleImage from './welcome_illustration.svg';
 
 const Welcome = () => {
     const translate = useTranslate();
-
+    return <></>
     return (
         <Card
             sx={{
