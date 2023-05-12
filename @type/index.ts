@@ -68,6 +68,7 @@ export type ResponseReview = ProductReview & {
     nickName?: string,
     userCreatedDate: Date,
     isLiked: boolean,
+    isPending: boolean,
 }
 
 export type NewOrderItem = {
