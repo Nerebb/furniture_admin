@@ -3,13 +3,14 @@ import { CreateButton, ExportButton, FilterButton, TopToolbar } from 'react-admi
 
 type Props = {
     isFilter?: boolean
+    isCreate?: boolean
 }
 
-export default function ListActions({ isFilter = false }: Props) {
+export default function ListActions({ isFilter = false, isCreate = false }: Props) {
     return (
         <TopToolbar>
             {isFilter && <FilterButton />}
-            <CreateButton />
+            {isCreate && <CreateButton />}
             <ExportButton />
         </TopToolbar>
     )

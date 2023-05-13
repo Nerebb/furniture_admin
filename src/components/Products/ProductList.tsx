@@ -9,7 +9,7 @@ import { productFilters } from '.';
 const ProductList = () => (
     <List
         filters={productFilters}
-        actions={<ListActions isFilter />}
+        actions={<ListActions isFilter isCreate />}
     >
         <Datagrid
             expand={<ProductDetail />}

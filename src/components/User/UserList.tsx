@@ -7,7 +7,7 @@ const UserList = () => {
     return (
         <List
             filters={userFilters}
-            actions={<ListActions isFilter />}
+            actions={<ListActions isFilter isCreate />}
         >
             <Datagrid
                 expand={<UserDetail />}

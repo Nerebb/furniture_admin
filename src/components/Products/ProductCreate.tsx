@@ -1,4 +1,4 @@
-import { AutocompleteInput, BooleanInput, Create, Edit, NumberInput, ReferenceArrayInput, ReferenceInput, SelectArrayInput, SimpleForm, TextInput } from "react-admin"
+import { AutocompleteInput, BooleanInput, Create, Edit, FunctionField, NumberInput, ReferenceArrayInput, ReferenceInput, SelectArrayInput, SimpleForm, TextInput } from "react-admin"
 import { Box, Card, CardActions, CardContent, Grid, Rating, Stack, Typography } from '@mui/material';
 import { ProductCreateSchemaValidate, ProductUpdateSchemaValidate } from "@/utils/schemaValidate";
 import * as Yup from 'yup'
@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import CreateModal from "../customs/CreateModal";
 import { RichTextInput } from "ra-input-rich-text";
 import { selectArrayRef } from ".";
+import { User } from "@prisma/client";
 
 
 const ProductCreate = () => {
@@ -21,10 +22,13 @@ const ProductCreate = () => {
             }}
         >
             <SimpleForm
-                resolver={yupResolver(Yup.object(ProductCreateSchemaValidate))}
+            // resolver={yupResolver(Yup.object(ProductCreateSchemaValidate))}
             >
                 <Stack direction='row' gap={2} width={"100%"} justifyContent='space-between'>
                     <TextInput label="Product name" source="name" sx={{ minWidth: "350px" }} />
+                    <ReferenceInput source="creatorId" reference='user' >
+                        <AutocompleteInput optionText='name' />
+                    </ReferenceInput>
                     <BooleanInput source="isFeatureProduct" />
                 </Stack>
                 <Stack direction='row' gap={2} width={"100%"}>
@@ -36,7 +40,6 @@ const ProductCreate = () => {
                     />
                     <NumberInput source="available" sx={{ flexGrow: 1 }} />
                 </Stack>
-                {/* <ReferenceInput source="creatorId" reference='user'/> */}
                 <Grid container width={"100%"} spacing={1}>
                     {selectArrayRef.map(field => (
                         <Grid item xs={4} key={`NewProduct-${field.source}`}>

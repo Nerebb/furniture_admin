@@ -1,6 +1,7 @@
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'; import ReviewList from './PreviewList';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import { BooleanInput, DateInput, NumberInput, TextInput } from 'react-admin';
+import ReviewList from './PreviewList';
 import ReviewEdit from './ReviewEdit';
-import { BooleanInput, DateInput, NumberInput, SelectInput, TextInput } from 'react-admin';
 
 export const ReviewFilters = [
     <BooleanInput key={`ReviewFilter-isPending`} source="isPending" alwaysOn />,

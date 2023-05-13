@@ -9,7 +9,7 @@ import { ResponseOrder } from '../../../@type';
 const OrderList = () => (
     <List
         filters={orderFilters}
-        actions={<ListActions isFilter />}
+        actions={<ListActions isFilter isCreate />}
         sx={{
             ".column-status": {
                 textTransform: "capitalize"

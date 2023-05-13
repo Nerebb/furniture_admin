@@ -39,16 +39,16 @@ export const CreateColorSchemaValidate = {
 export const ProductUpdateSchemaValidate = {
     name: Yup.string().max(20),
     description: Yup.string().min(1),
-    price: Yup.number().min(0),
-    available: Yup.number().min(0),
+    price: Yup.number().integer().min(0),
+    available: Yup.number().integer().min(0),
     isFeatureProduct: Yup.boolean(),
     colors: Yup.array().of(Yup.string().max(7).required()),
-    cateIds: Yup.array().of(Yup.number().moreThan(-1).required()),
-    roomIds: Yup.array().of(Yup.number().moreThan(-1).required()),
-    imageIds: Yup.array().of(Yup.number().moreThan(-1).required()),
+    cateIds: Yup.array().of(Yup.number().integer().moreThan(-1).required()),
+    roomIds: Yup.array().of(Yup.number().integer().moreThan(-1).required()),
+    imageIds: Yup.array().of(Yup.number().integer().moreThan(-1).required()),
 
     creatorId: Yup.string().uuid(),
-    avgRating: Yup.number().min(0).max(5),
+    avgRating: Yup.number().integer().min(0).max(5),
 }
 
 export const ProductCreateSchemaValidate = {
@@ -60,7 +60,8 @@ export const ProductCreateSchemaValidate = {
     colors: ProductUpdateSchemaValidate.colors.required('Color must be array type'),
     roomIds: ProductUpdateSchemaValidate.roomIds.required(),
     cateIds: ProductUpdateSchemaValidate.cateIds.required(),
-    imageIds: ProductUpdateSchemaValidate.imageIds.required(),
+    // imageIds: ProductUpdateSchemaValidate.imageIds.required(),
+    isFeatureProduct: Yup.boolean(),
 }
 
 export const UserEditSchemaValidate = {

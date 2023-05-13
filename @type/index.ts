@@ -32,6 +32,7 @@ export type ProductSearch = {
 
 export type FilterSearch = {
     id?: string | number[]
+    label?: string
     filter?: string //'id' | "label" | "hex"
     sort?: string //"asc" "desc"
     limit?: number
@@ -147,6 +148,7 @@ export type ProductCard = {
     totalProduct: number,
     totalSale: number,
     totalRating: number,
+    isFeatureProduct: boolean,
     totalComments: number,
 }
 

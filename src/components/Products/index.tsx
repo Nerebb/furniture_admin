@@ -28,7 +28,7 @@ export const selectArrayRef = [
 ]
 
 export const productFilters = [
-    <BooleanInput key={`filter-featured`} label="Featured product" source="isFeatureProduct" alwaysOn />,
+    <BooleanInput key={`filter-featured`} label="Featured product" source="isFeatureProduct" alwaysOn defaultValue={false} />,
     <TextInput key={`filter-name`} label="Filter by name" source="name" alwaysOn />,
     <TextInput key={`filter-rating`} label="Filter by rating" source="avgRating" alwaysOn />,
 ];

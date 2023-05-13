@@ -41,7 +41,7 @@ const ProductEdit = () => {
                     <NumberInput source="available" sx={{ flexGrow: 1 }} />
                 </Stack>
                 {selectArrayRef.map(field => (
-                    <Grid item xs={4} key={`NewProduct-${field.source}`}>
+                    <Grid item xs={4} key={`EditProduct-${field.source}`}>
                         <ReferenceArrayInput
                             source={field.source}
                             reference={field.reference}

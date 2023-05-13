@@ -38,12 +38,11 @@ type LoginForm = {
 }
 const theme = createTheme();
 const initState = {
-    loginId: undefined,
-    password: undefined,
+    loginId: 'admin',
+    password: 'admin',
     error: undefined,
     isLoading: false,
 } satisfies LoginForm
-const schema = Yup.object(LoginSchemaValidate)
 
 export default function Login() {
     const login = useLogin()
@@ -105,6 +104,7 @@ export default function Login() {
                             id="loginId"
                             label="Login ID"
                             name="loginId"
+                            defaultValue='admin'
                             autoFocus
                             onChange={(e) => dispatch({ loginId: e.target.value })}
                         />
@@ -112,6 +112,7 @@ export default function Login() {
                             margin="normal"
                             required
                             fullWidth
+                            defaultValue='admin'
                             name="password"
                             label="Password"
                             type="password"

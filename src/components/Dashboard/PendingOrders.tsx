@@ -10,7 +10,9 @@ interface Props {
 }
 
 const PendingOrders = (props: Props) => {
-    const { orders = [] } = props;
+    const orders = props.orders
+        ? props.orders?.sort((a, b) => (new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()))
+        : []
 
     return (
         <Card sx={{ flex: 1 }}>

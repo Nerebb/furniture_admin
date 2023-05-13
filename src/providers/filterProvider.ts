@@ -3,6 +3,7 @@ import { stringify } from 'query-string';
 import { DataProvider } from "react-admin";
 import { BASE_URL_ADMIN, httpClient } from ".";
 import { FilterSearch } from "../../@type";
+import { Color } from "@prisma/client";
 
 export type Filter = {
     id: string
@@ -13,6 +14,11 @@ const FilterProvider: DataProvider = {
     getList: (resource, params) => {
         try {
             const AllowedFilters = {
+                //filter
+                id: params.filter.id,
+                label: params.filter.label,
+
+                //Sort
                 filter: params.sort.field === "id" && resource === 'color' ? 'hex' : params.sort.field,
                 sort: params.sort.order,
                 limit: params.pagination.perPage,
@@ -24,9 +30,9 @@ const FilterProvider: DataProvider = {
             return httpClient(url)
                 .then(({ headers, json }) => {
                     const contentRange = headers.get('content-range')?.split('/').pop()
-
+                    const data = Array.isArray(json.data) ? json.data : [json.data]
                     return {
-                        data: json.data,
+                        data,
                         total: contentRange ? JSON.parse(contentRange).totalRecord : 1,
                     }
                 })
@@ -51,6 +57,7 @@ const FilterProvider: DataProvider = {
         try {
             const url = buildQuery(`${BASE_URL_ADMIN}/${resource}`, { id: params.ids });
             return httpClient(url).then(({ json }) => {
+                console.log("🚀 ~ file: filterProvider.ts:61 ~ returnhttpClient ~ json:", json.data)
                 if (params.ids.length <= 1) return ({ data: [json.data] }) //Sever response with only 1 record
                 return ({ data: json.data })
             }).catch((error) => {

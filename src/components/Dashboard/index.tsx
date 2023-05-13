@@ -53,7 +53,7 @@ export default function Dashboard() {
                     if (order.status !== 'orderCanceled') {
                         stats.revenue += Number(order.total);
                     }
-                    if (order.status === 'completed') {
+                    if (order.status !== 'completed') {
                         stats.pendingOrders.push(order);
                     }
                     if (Number(order.total) > stats.highestOrder.total) {

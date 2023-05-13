@@ -114,13 +114,15 @@ const ProductProvider: DataProvider = {
         }));
     },
 
-    create: (resource, params) =>
-        httpClient(`${BASE_URL_ADMIN}/${resource}/${params.data.id}`, {
+    create: (resource, params) => {
+        console.log("PRODUCT-CREATE", params)
+        return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
             data: { ...json.data },
-        })),
+        }))
+    },
 
     update: (resource, params) => {
         return httpClient(`${BASE_URL_ADMIN}/${resource}/${params.data.id}`, {
