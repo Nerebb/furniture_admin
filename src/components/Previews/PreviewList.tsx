@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { User } from "@prisma/client"
-import { BooleanField, Button, ChipField, Datagrid, DateField, DeleteButton, EditButton, FunctionField, List, NumberField, ReferenceField, TextField, useDataProvider, useNotify } from "react-admin"
+import { BooleanField, Button, ChipField, Datagrid, DateField, DeleteButton, EditButton, FunctionField, List, NumberField, ReferenceField, ReferenceOneField, TextField, useDataProvider, useNotify } from "react-admin"
 import { ReviewFilters } from "."
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ListActions from "../customs/ListActions"
@@ -36,8 +36,8 @@ const ReviewList = () => {
                 <ReferenceField source="ownerId" reference='user' sx={{ textTransform: "capitalize" }}>
                     <FunctionField render={(record: User) => record && `${record.name} (${record.nickName})`} />
                 </ReferenceField>
-                <ReferenceField source="productId" reference="products" >
-                    <TextField source="id" />
+                <ReferenceField source="productId" reference="products">
+                    <FunctionField render={(record: ProductCard) => record && `${record.name}`} />
                 </ReferenceField>
                 <NumberField source="totalLike" textAlign="center" />
                 <NumberField source="rating" textAlign="center" />

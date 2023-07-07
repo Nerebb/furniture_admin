@@ -1,11 +1,11 @@
 import React from 'react'
-import { useRecordContext } from 'react-admin'
+import { FieldProps, useRecordContext } from 'react-admin'
 import { ResponseReview } from '../../../../@type'
 import { Chip } from '@mui/material'
 
 type Props = {}
 
-export default function PendingChip({ }: Props) {
+export default function PendingChip({ }: FieldProps & Props) {
     const record = useRecordContext<ResponseReview>()
     const pending = record.isPending ?? true
     return (
@@ -23,3 +23,9 @@ export default function PendingChip({ }: Props) {
         />
     )
 }
+
+PendingChip.defaultProps = {
+    label: 'Status',
+    source: 'isPending',
+}
+

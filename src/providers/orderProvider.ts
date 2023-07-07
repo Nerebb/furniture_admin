@@ -109,8 +109,7 @@ const OrderProvider: DataProvider = {
     },
 
     create: (resource, params) => {
-
-        return httpClient(`${BASE_URL_ADMIN}/${resource}`, {
+        return httpClient(`${BASE_URL_ADMIN}/user/shoppingCart`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({

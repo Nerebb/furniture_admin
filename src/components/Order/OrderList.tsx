@@ -20,7 +20,7 @@ const OrderList = () => (
             rowClick="expand"
             expand={<OrderDetail />}
         >
-            <TextField source="id" />
+            {/* <TextField source="id" /> */}
             <ReferenceField source="ownerId" reference='user' sx={{ textTransform: "capitalize" }}>
                 <FunctionField render={(record: User) => record && `${record.name} (${record.nickName})`} />
             </ReferenceField>

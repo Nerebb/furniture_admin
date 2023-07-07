@@ -68,6 +68,8 @@ const ReviewProvider: DataProvider = {
     },
 
     getManyReference: (resource, params) => {
+        console.log("PRODUCT-GETMANYREF-RES", resource)
+        console.log("PRODUCT-GETMANYREF-params", params)
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {

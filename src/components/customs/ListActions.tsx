@@ -1,5 +1,5 @@
 import React from 'react'
-import { CreateButton, ExportButton, FilterButton, TopToolbar } from 'react-admin'
+import { CreateButton, ExportButton, FilterButton, SelectColumnsButton, TopToolbar } from 'react-admin'
 
 type Props = {
     isFilter?: boolean
@@ -9,6 +9,7 @@ type Props = {
 export default function ListActions({ isFilter = false, isCreate = false }: Props) {
     return (
         <TopToolbar>
+            <SelectColumnsButton />
             {isFilter && <FilterButton />}
             {isCreate && <CreateButton />}
             <ExportButton />
